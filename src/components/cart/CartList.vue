@@ -11,7 +11,7 @@
                 </tr>
             </thead>
             <tbody>
-                <CartItem/>
+                <CartItem v-for="item in cartItems" :key="item.id" :cartItem="item" />
             </tbody>
         </table>
         <hr/>
@@ -24,10 +24,17 @@
 
 <script>
 import CartItem from './CartItem.vue';
+import { mapGetters } from 'vuex';
 export default {
  name:'CartList',
  components:{
      CartItem
+ },
+ computed:{
+  ...mapGetters(['cartItems'])
+ },
+ created(){
+     this.$store.dispatch('fetchCartItems');
  }
 }
 </script>
